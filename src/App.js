@@ -1,22 +1,42 @@
-import logo from './logo.svg';
+import { useState } from 'react'
 import './App.css';
+import FilterButton from './FilterButton';
+import Film from './Film'
+
+const filters = ["action", "adventure", "sci-fi", "romcom", "biopic"]
+const filmData = [
+  { id: 1, name: "Die Hard", genre: "action" },
+  { id: 2, name: "Doctor Who", genre: "sci-fi" },
+  { id: 3, name: "Love Actually", genre: "romcom" },
+  { id: 4, name: "Rocket Man", genre: "biopic" },
+  { id: 5, name: "Jumanji", genre: "adventure" },
+]
 
 function App() {
+  let [films, setFilms] = useState(filmData)
+
+  const setFilter = (filter) => {
+    let newFilms = filmData.filter((film) => film.genre === filter)
+
+    setFilms(newFilms)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="filters-toolbar">
+          <p>Click to filter:</p>
+
+          {filters.map((filter) => {
+            return <FilterButton key={filter} filter={filter} setFilter={setFilter}/>
+          })}
+        </div>
+
+        <div className="films">
+          {films.map((film) => {
+            return <Film key={film.id} film={film}/>
+          })}
+        </div>
       </header>
     </div>
   );

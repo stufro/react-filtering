@@ -36,3 +36,50 @@
     transform: rotate(360deg);
   }
 }
+
+.filters-toolbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: baseline;
+}
+
+.filter {
+  border: 2px solid rgb(239, 239, 239);
+  border-radius: .75em;
+  padding: .3em;
+  min-width: 5em;
+}
+
+.filter::before {
+  content: "#";
+}
+
+.films {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.film {
+  border: 2px solid rgb(239, 239, 239);
+  border-radius: 10px;
+  padding: .5em;
+}
+
+.tag {
+  background-color: rgb(127, 172, 255);;
+  color: #282c34;
+  border-radius: .75em;
+  padding: .1em;
+}
+
+.tag::before {
+  content: "#";
+  font-size: 1ch;
+}
+
+.tag small {
+  font-size: 1ch;
+}
