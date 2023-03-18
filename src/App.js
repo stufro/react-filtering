@@ -23,6 +23,11 @@ function App() {
     setActiveFilter(filter)
   }
 
+  const clearFilter = () => {
+    setFilms(filmData)
+    setActiveFilter(undefined)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -33,6 +38,8 @@ function App() {
             return <FilterButton key={filter} filter={filter} active={activeFilter === filter} setFilter={setFilter}/>
           })}
         </div>
+
+        { activeFilter ? <button className="clear-button" onClick={clearFilter}>Clear Filters</button> : null }
 
         <div className="films">
           {films.map((film) => {

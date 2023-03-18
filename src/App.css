@@ -49,6 +49,7 @@
   border-radius: .75em;
   padding: .3em;
   min-width: 5em;
+  cursor: pointer;
 }
 
 .filter::before {
@@ -87,4 +88,12 @@
 
 .tag small {
   font-size: 1ch;
+}
+
+.clear-button {
+  padding: 1em;
+  border-radius: .75em;
+  background-color: rgb(255, 166, 166);
+  border: 0;
+  margin-bottom: 3em;
 }
