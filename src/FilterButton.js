@@ -1,8 +1,8 @@
-function FilterButton({filter, setFilter}) {
+function FilterButton({filter, active, setFilter}) {
   const handleClick = () => { setFilter(filter) }
 
   return (
-    <div className="filter" onClick={handleClick}>
+    <div className="filter" data-active={active ? 'true' : 'false'} onClick={handleClick}>
       {filter}
     </div>
   )

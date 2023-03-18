@@ -9,16 +9,18 @@ const filmData = [
   { id: 2, name: "Doctor Who", genre: "sci-fi" },
   { id: 3, name: "Love Actually", genre: "romcom" },
   { id: 4, name: "Rocket Man", genre: "biopic" },
-  { id: 5, name: "Jumanji", genre: "adventure" },
+  { id: 5, name: "Jumanji: Next Level", genre: "adventure" },
 ]
 
 function App() {
   let [films, setFilms] = useState(filmData)
+  let [activeFilter, setActiveFilter] = useState()
 
   const setFilter = (filter) => {
     let newFilms = filmData.filter((film) => film.genre === filter)
 
     setFilms(newFilms)
+    setActiveFilter(filter)
   }
 
   return (
@@ -28,7 +30,7 @@ function App() {
           <p>Click to filter:</p>
 
           {filters.map((filter) => {
-            return <FilterButton key={filter} filter={filter} setFilter={setFilter}/>
+            return <FilterButton key={filter} filter={filter} active={activeFilter === filter} setFilter={setFilter}/>
           })}
         </div>
 
