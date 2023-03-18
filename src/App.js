@@ -5,27 +5,29 @@ import Film from './Film'
 
 const filters = ["action", "adventure", "sci-fi", "romcom", "biopic"]
 const filmData = [
-  { id: 1, name: "Die Hard", genre: "action" },
-  { id: 2, name: "Doctor Who", genre: "sci-fi" },
-  { id: 3, name: "Love Actually", genre: "romcom" },
-  { id: 4, name: "Rocket Man", genre: "biopic" },
-  { id: 5, name: "Jumanji: Next Level", genre: "adventure" },
+  { id: 1, name: "Die Hard", genre: ["action"] },
+  { id: 2, name: "Doctor Who", genre: ["sci-fi"] },
+  { id: 3, name: "Love Actually", genre: ["romcom"] },
+  { id: 4, name: "Rocket Man", genre: ["biopic"] },
+  { id: 5, name: "Jumanji: Next Level", genre: ["adventure"] },
 ]
 
 function App() {
   let [films, setFilms] = useState(filmData)
-  let [activeFilter, setActiveFilter] = useState()
+  let [activeFilters, setActiveFilters] = useState([])
 
   const setFilter = (filter) => {
-    let newFilms = filmData.filter((film) => film.genre === filter)
+    let newFilters = activeFilters
+    newFilters.push(filter)
+    let newFilms = filmData.filter((film) => newFilters.some((filter) => film.genre.includes(filter)))
 
+    setActiveFilters(newFilters)
     setFilms(newFilms)
-    setActiveFilter(filter)
   }
 
   const clearFilter = () => {
     setFilms(filmData)
-    setActiveFilter(undefined)
+    setActiveFilters([])
   }
 
   return (
@@ -35,11 +37,12 @@ function App() {
           <p>Click to filter:</p>
 
           {filters.map((filter) => {
-            return <FilterButton key={filter} filter={filter} active={activeFilter === filter} setFilter={setFilter}/>
+            return <FilterButton key={filter} filter={filter} active={activeFilters.includes(filter)} setFilter={setFilter}/>
           })}
+
+          { activeFilters.length !== 0 ? <button className="clear-button" onClick={clearFilter}>Clear Filters</button> : null }
         </div>
 
-        { activeFilter ? <button className="clear-button" onClick={clearFilter}>Clear Filters</button> : null }
 
         <div className="films">
           {films.map((film) => {
