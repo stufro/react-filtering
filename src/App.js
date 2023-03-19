@@ -25,7 +25,16 @@ function App() {
     setFilms(newFilms)
   }
 
-  const clearFilter = () => {
+  const clearFilter = (filter) => {
+    let newFilters = activeFilters
+    newFilters.splice(activeFilters.indexOf(filter), 1)
+    let newFilms = filmData.filter((film) => newFilters.some((filter) => film.genre.includes(filter)))
+
+    setActiveFilters(newFilters)
+    setFilms(newFilms)
+  }
+
+  const clearAll = () => {
     setFilms(filmData)
     setActiveFilters([])
   }
@@ -37,16 +46,16 @@ function App() {
           <p>Click to filter:</p>
 
           {filters.map((filter) => {
-            return <FilterButton key={filter} filter={filter} active={activeFilters.includes(filter)} setFilter={setFilter}/>
+            return <FilterButton key={filter} filter={filter} active={activeFilters.includes(filter)} setFilter={setFilter} clearFilter={clearFilter} />
           })}
 
-          { activeFilters.length !== 0 ? <button className="clear-button" onClick={clearFilter}>Clear Filters</button> : null }
+          {activeFilters.length !== 0 ? <button className="clear-button" onClick={clearAll}>Clear Filters</button> : null}
         </div>
 
 
         <div className="films">
           {films.map((film) => {
-            return <Film key={film.id} film={film}/>
+            return <Film key={film.id} film={film} />
           })}
         </div>
       </header>
